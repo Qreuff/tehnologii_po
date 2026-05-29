@@ -1,0 +1,7 @@
+Hello Git modified in branch1
+изменения в 1
+<<<<<<< HEAD
+модификация мастер ветки
+=======
+1
+>>>>>>> branch1
