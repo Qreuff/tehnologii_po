@@ -6,6 +6,7 @@
 #include <cblas.h>
 
 using namespace std;
+
 template <typename T>
 void my_gemm(int n, const T* A, const T* B, T* C) {
     for (int i = 0; i < n; ++i) {
@@ -20,18 +21,20 @@ void my_gemm(int n, const T* A, const T* B, T* C) {
 }
 
 void openblas_gemm(int n, const float* A, const float* B, float* C) {
-    cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, n, n, n, 1.0, A, n, B, n, 0.0, C, n);
+    cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, 
+                n, n, n, 1.0f, A, n, B, n, 0.0f, C, n);
 }
 
 void openblas_gemm(int n, const double* A, const double* B, double* C) {
-    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, n, n, n, 1.0, A, n, B, n, 0.0, C, n);
+    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, 
+                n, n, n, 1.0, A, n, B, n, 0.0, C, n);
 }
 
 template <typename T>
 void run_test(int N, int threads) {
     openblas_set_num_threads(threads);
 
-    vector<T> A(N * N, 1.1), B(N * N, 2.2), C_my(N * N, 0.0), C_bl(N * N, 0.0);
+    vector<T> A(N * N, T(1.1)), B(N * N, T(2.2)), C_my(N * N, T(0)), C_bl(N * N, T(0));
     vector<double> my_times, bl_times;
 
     cout << "\n--- Тест: N=" << N << ", Потоков=" << threads << " ---" << endl;
