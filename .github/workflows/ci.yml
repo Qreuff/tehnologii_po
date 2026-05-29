@@ -18,10 +18,8 @@ jobs:
 
       - name: Build benchmark
         run: |
-          cd dc_exmpl/benchmark
           make
 
       - name: Run benchmark
         run: |
-          cd dc_exmpl/benchmark
           ./benchmark
